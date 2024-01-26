@@ -1,5 +1,5 @@
-import table
-import random
+from src.table import Table
+from random import shuffle
 
 
 class OpenSpace:
@@ -8,7 +8,7 @@ class OpenSpace:
     filename = "result.xlsx"
 
     def __init__(self, number_of_tables = 6):
-        self.tables = [table.Table(4) for _ in range(number_of_tables)]
+        self.tables = [Table(4) for _ in range(number_of_tables)]
 
     def __str__(self) -> str:
         places = []
@@ -21,7 +21,7 @@ class OpenSpace:
 
     def organize(self, names):
         """Assign students to seats in tables at random"""
-        random.shuffle(names)
+        shuffle(names)
         for name in names:
             for table in self.tables:
                 if table.has_free_spot():
