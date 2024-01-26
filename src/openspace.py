@@ -1,7 +1,7 @@
+import pandas as pd
+
 from src.table import Table
 from random import shuffle
-
-import pandas as pd
 
 
 class OpenSpace:
@@ -20,11 +20,11 @@ class OpenSpace:
         if people_count > total_seats:
             print(f"There are {people_count} students in the room! Not enough seats")
         shuffle(names)
-        for name in names:
+        while names:
             for table in self.tables:
-                if table.has_free_spot():
+                if table.has_free_spot() and names:
+                    name = names.pop()
                     table.assign_seat(name)
-                    break 
 
     def display(self):
         """Display the tables and students"""
