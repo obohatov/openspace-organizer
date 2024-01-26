@@ -1,23 +1,17 @@
 from src.table import Table
 from random import shuffle
 
+import pandas as pd
+
 
 class OpenSpace:
     """This class represents an open space with a list of tables"""
 
-    filename = "result.xlsx"
-
     def __init__(self, number_of_tables = 6):
         self.tables = [Table(4) for _ in range(number_of_tables)]
-
+    
     def __str__(self) -> str:
-        places = []
-        for table in self.tables:
-            places.append(f"{table.capacity}: {table.seats}")
-        return f"Open space with {len(self.tables)} tables ({places})"
-
-    def __str__(self) -> str:
-        return f"{self.tables}"
+        return f"Open space with {len(self.tables)} tables: {[str(table) for table in self.tables]}"
 
     def organize(self, names):
         """Assign students to seats in tables at random"""
@@ -58,4 +52,13 @@ class OpenSpace:
                     
     def store(self, filename):
         """Store the repartition in Excel file"""
-        pass  
+        data = {'Table': [], 'Seat': [], 'Occupant': []}
+
+        for i, table in enumerate(self.tables, start=1):
+            for j, seat in enumerate(table.seats, start=1):
+                data['Table'].append(i)
+                data['Seat'].append(j)
+                data['Occupant'].append(seat.occupant if seat.occupant else "Empty")
+
+        df = pd.DataFrame(data)
+        df.to_excel(filename, index=False)

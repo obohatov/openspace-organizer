@@ -4,9 +4,12 @@ class Seat:
     def __init__(self):
         self.free = True
         self.occupant = None
-
+    
     def __str__(self) -> str:
-        return f"This seat are free: {self.free} {self.occupant}"
+        if self.free:
+            return "This seat is free."
+        else:
+            return f"This seat is occupied by {self.occupant}."
 
     def set_occupant(self, name):
         """Assign a seat if it's free"""
@@ -29,7 +32,7 @@ class Table:
         self.seats = [Seat() for _ in range(capacity)]
     
     def __str__(self) -> str:
-        return f"{self.capacity} {self.seats}"
+        return f"Table with capacity: {self.capacity}, seats: {[str(seat) for seat in self.seats]}"
     
     def has_free_spot(self):
         """Check is the table has free spot""" 
