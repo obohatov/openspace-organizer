@@ -1,6 +1,5 @@
 *.vscode/
 *.env
-*.xlsx
 venv/
 __pycache__
 script.py
